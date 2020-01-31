@@ -111,6 +111,43 @@ public class WantedFragment extends Fragment {
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
+                String string = dataSnapshot.getValue(String.class);
+
+                Log.i(TAG, "onChildRemoved: "+string);
+
+                assert string != null;
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("criminal_ref").child(string);
+
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        Criminals criminals = dataSnapshot.getValue(Criminals.class);
+
+                        int i=0;
+                        for(i=0 ; i<criminalsLists.size() ; i++){
+
+                            assert criminals != null;
+                            if(criminalsLists.get(i).getCriminal_id().equals(criminals.getCriminal_id())){
+
+                                criminalsLists.remove(i);
+                                break;
+
+                            }
+
+                        }
+
+                        wantedAdapter.notifyItemRemoved(i);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
             }
 
             @Override
