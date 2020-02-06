@@ -129,6 +129,7 @@ public class FirFragment extends Fragment {
                     new AlertDialog.Builder(getContext())
                             .setTitle("Incomplete Information")
                             .setMessage("Account Details should be filled")
+                            .setCancelable(false)
 
                             // Specifying a listener allows you to take an action before dismissing the dialog.
                             // The dialog is automatically dismissed when a dialog button is clicked.
@@ -183,7 +184,7 @@ public class FirFragment extends Fragment {
 
 
         // OnItemSelectedListener() is used because we need to also store the type of crime reported by the user and we will store it in
-        // strng crimeType
+        // string crimeType
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -204,7 +205,7 @@ public class FirFragment extends Fragment {
 
         //setting array adaptors to spinners
         //ArrayAdapter is a BaseAdapter that is backed by an array of arbitrary objects
-        ArrayAdapter<String> spin_adapter = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, type);
+        ArrayAdapter<String> spin_adapter = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, type);
 
         // setting adapters to spinners
         spinner.setAdapter(spin_adapter);
@@ -313,6 +314,7 @@ public class FirFragment extends Fragment {
 
                                 subject.setText("");
                                 details.setText("");
+                                flag=0;
 
                                 state.isFocusable();
 

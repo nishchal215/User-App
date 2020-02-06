@@ -32,7 +32,7 @@ public class WantedFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private WantedAdapter wantedAdapter;
-    private List<Criminals> criminalsLists;
+    private List<String> criminalsLists;
 
 
     @Override
@@ -53,9 +53,9 @@ public class WantedFragment extends Fragment {
 
         if (currentUser != null) {
             criminalsLists = new ArrayList<>();
-            readCriminals();
             wantedAdapter = new WantedAdapter(getContext(), criminalsLists);
             recyclerView.setAdapter(wantedAdapter);
+            readCriminals();
 
         }
 
@@ -75,30 +75,9 @@ public class WantedFragment extends Fragment {
 
 //                Log.i(TAG, "onChildAdded: "+string);
 
-                assert string != null;
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("criminal_ref").child(string);
+                criminalsLists.add(string);
 
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        Criminals criminals = dataSnapshot.getValue(Criminals.class);
-
-                        criminalsLists.add(criminals);
-
-                        assert criminals != null;
-                        Log.i(TAG, "onDataChange: "+ criminalsLists.get(criminalsLists.size()-1).getCriminal_name());
-
-                        wantedAdapter.notifyItemInserted(criminalsLists.size()-1);
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
+                wantedAdapter.notifyItemInserted(criminalsLists.size()-1);
 
 
             }
@@ -113,40 +92,24 @@ public class WantedFragment extends Fragment {
 
                 String string = dataSnapshot.getValue(String.class);
 
-                Log.i(TAG, "onChildRemoved: "+string);
+//                Log.i(TAG, "onChildRemoved: "+string);
 
-                assert string != null;
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("criminal_ref").child(string);
+                int i=0;
+                for(i=0 ; i<criminalsLists.size() ; i++){
 
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(criminalsLists.get(i).equals(string)){
 
-                        Criminals criminals = dataSnapshot.getValue(Criminals.class);
-
-                        int i=0;
-                        for(i=0 ; i<criminalsLists.size() ; i++){
-
-                            assert criminals != null;
-                            if(criminalsLists.get(i).getCriminal_id().equals(criminals.getCriminal_id())){
-
-                                criminalsLists.remove(i);
-                                break;
-
-                            }
-
-                        }
-
-                        wantedAdapter.notifyItemRemoved(i);
+                        criminalsLists.remove(i);
+                        break;
 
                     }
+                }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.i(TAG, "onChildRemoved: "+i);
+//
+//                Log.i(TAG, "onChildRemoved: "+criminalsLists.size());
 
-                    }
-                });
-
+                wantedAdapter.notifyItemRemoved(i);
 
             }
 

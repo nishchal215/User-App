@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -25,7 +27,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FirFragment.OnAlertDialogBoxClickedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        FirFragment.OnAlertDialogBoxClickedListener {
 
     DrawerLayout drawer;
     NavigationView navigationView;
@@ -172,6 +175,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 break;
 
+            case R.id.file_a_fir:
+                FirFragment firFragment = new FirFragment();
+                fragmentTransaction.replace(R.id.fragment_container, firFragment);
+                fragmentTransaction.commit();
+                toolbar.setTitle("FIR");
+                break;
+
+            case R.id.complaint_box:
+                ComplaintFragment complaintFragment = new ComplaintFragment();
+                fragmentTransaction.replace(R.id.fragment_container, complaintFragment);
+                fragmentTransaction.commit();
+                toolbar.setTitle("Complaint Box");
+                break;
+
             case R.id.account:
                 AccountFragment accountFragment = new AccountFragment();
                 fragmentTransaction.replace(R.id.fragment_container, accountFragment);
@@ -179,11 +196,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 toolbar.setTitle("Account");
                 break;
 
-            case R.id.file_a_fir:
-                FirFragment firFragment = new FirFragment();
-                fragmentTransaction.replace(R.id.fragment_container, firFragment);
+            case R.id.noc:
+                NocFragment nocFragment = new NocFragment();
+                fragmentTransaction.replace(R.id.fragment_container,nocFragment);
                 fragmentTransaction.commit();
-                toolbar.setTitle("FIR");
+                toolbar.setTitle("NOC");
                 break;
 
             case R.id.logout :

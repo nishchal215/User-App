@@ -10,8 +10,8 @@
         android:title="File a FIR" />
 
     <item
-        android:id="@+id/complaint_list"
-        android:title="Complaint List" />
+        android:id="@+id/noc"
+        android:title="Apply for NOC" />
 
     <item
         android:id="@+id/complaint_box"
