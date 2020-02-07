@@ -4,13 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -39,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FirebaseAuth mAuth;
     FragmentTransaction fragmentTransaction;
     Toolbar toolbar;
+    ImageView emergencyButton;
 
 
     @Override
@@ -72,6 +81,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             setSupportActionBar(toolbar);
 
             View navHeaderView = navigationView.inflateHeaderView(R.layout.nav_drawer_head);
+
+            emergencyButton = navHeaderView.findViewById(R.id.emergencyButton);
+
+            emergencyButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+
+                }
+            });
+            
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
             drawer.addDrawerListener(toggle);
             toggle.syncState();
@@ -113,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         }
-
+        
 //        Log.i(TAG, "onCreate: "+ currentUser.getUid());
 
     }
@@ -131,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        Log.i(TAG, "onStart: here");
+//        Log.i(TAG, "onStart: here");
         super.onStart();
 
         mAuth.addAuthStateListener(mAuthStateListener);
