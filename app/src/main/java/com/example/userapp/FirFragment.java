@@ -34,6 +34,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
@@ -113,7 +114,8 @@ public class FirFragment extends Fragment {
 
 
         spinner =view.findViewById(R.id.spinner);
-        final String[] type = {"Select type of crime", "Robbery", "Missing Person", "Missing Vehicle", "Rape","Murder"};
+        final String[] type = {"Select type of crime", "Murder", "Illegal Trafficking", "Women Related Crime", "Children Related Crime",
+                "Business Related Crime", "Others"};
 
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -295,11 +297,11 @@ public class FirFragment extends Fragment {
 
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("FIRs");
 
-                Fir fir = new Fir(currentUser.getUid(), txt_state, txt_district, txt_place, crimeType, txt_subject, txt_details);
+                Fir fir = new Fir(currentUser.getUid(), txt_state, txt_district, txt_place, crimeType, txt_subject, txt_details, ServerValue.TIMESTAMP, "Pending", "", "", "");
 
                 if(flag == 0){
 
-                    reference.child(UUID.randomUUID().toString()).setValue(fir).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    reference.push().setValue(fir).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
 
@@ -447,7 +449,7 @@ public class FirFragment extends Fragment {
         dist_list(state);
         act = view.findViewById(R.id.occurrence_district);
 //        Log.i(TAG, "addCity: "+listCity.size());
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(getContext(),android.R.layout.simple_dropdown_item_1line,listCity);
+        ArrayAdapter<String> adapter=new ArrayAdapter<>(getContext(),android.R.layout.simple_dropdown_item_1line,listCity);
 
         dist.setAdapter(adapter);
 

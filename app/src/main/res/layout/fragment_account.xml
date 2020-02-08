@@ -49,14 +49,28 @@
                         android:layout_below="@id/label_account"
                         android:background="#CC000000" />
 
-                    <TextView
-                        android:id="@+id/label_displayName"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/line1"
-                        android:layout_marginTop="15dp"
-                        android:hint="Name"
-                        android:textSize="20sp" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Name"
+                            android:textSize="22sp"
+                            android:layout_marginTop="15dp"/>
+
+                        <TextView
+                            android:id="@+id/label_displayName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:hint="Name"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/label_displayEmail"

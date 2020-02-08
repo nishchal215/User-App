@@ -224,6 +224,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 toolbar.setTitle("NOC");
                 break;
 
+            case R.id.appointments:
+                AppointmentFragment appointmentFragment = new AppointmentFragment();
+                fragmentTransaction.replace(R.id.fragment_container, appointmentFragment);
+                fragmentTransaction.commit();
+                toolbar.setTitle("Appointments");
+                break;
+
             case R.id.logout :
 //                Log.i(TAG, "onNavigationItemSelected: Logout Pressed");
                 signOut();

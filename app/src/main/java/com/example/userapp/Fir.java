@@ -1,14 +1,20 @@
 package com.example.userapp;
 
+import java.util.Map;
+
 public class Fir {
 
-    private String complainantId, state, district, place, type, subject, details;
+    private String complainantId, state, district, place, type, subject, details,ts;
+    String status, reportingDate, reportingPlace, correspondent;
+    Map<String, String> timeStamp;
 
 
-    public Fir(String state) {
+
+    public Fir() {
     }
 
-    public Fir(String complainantId, String state, String district, String place, String type, String subject, String details) {
+    public Fir(String complainantId, String state, String district, String place, String type, String subject, String details
+                , Map<String, String> timeStamp, String status, String reportingDate, String reportingPlace, String correspondent) {
         this.complainantId = complainantId;
         this.state = state;
         this.district = district;
@@ -16,6 +22,27 @@ public class Fir {
         this.type = type;
         this.subject = subject;
         this.details = details;
+        this.timeStamp = timeStamp;
+        this.status = status;
+        this.reportingDate = reportingDate;
+        this.reportingPlace = reportingPlace;
+        this.correspondent = correspondent;
+    }
+
+    public Fir(String complainantId, String state, String district, String place, String type, String subject, String details
+            , String ts, String status, String reportingDate, String reportingPlace, String correspondent) {
+        this.complainantId = complainantId;
+        this.state = state;
+        this.district = district;
+        this.place = place;
+        this.type = type;
+        this.subject = subject;
+        this.details = details;
+        this.ts = ts;
+        this.status = status;
+        this.reportingDate = reportingDate;
+        this.reportingPlace = reportingPlace;
+        this.correspondent = correspondent;
     }
 
 
@@ -75,4 +102,52 @@ public class Fir {
         this.details = details;
     }
 
+
+    public Map<String, String> getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(Map<String, String> timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public String getTs() {
+        return ts;
+    }
+
+    public void setTs(String ts) {
+        this.ts = ts;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getReportingDate() {
+        return reportingDate;
+    }
+
+    public void setReportingDate(String reportingDate) {
+        this.reportingDate = reportingDate;
+    }
+
+    public String getReportingPlace() {
+        return reportingPlace;
+    }
+
+    public void setReportingPlace(String reportingPlace) {
+        this.reportingPlace = reportingPlace;
+    }
+
+    public String getCorrespondent() {
+        return correspondent;
+    }
+
+    public void setCorrespondent(String correspondent) {
+        this.correspondent = correspondent;
+    }
 }

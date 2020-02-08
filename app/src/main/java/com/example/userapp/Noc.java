@@ -1,11 +1,15 @@
 package com.example.userapp;
 
+import android.util.Log;
+
 import java.util.Map;
 
 public class Noc {
 
+    private static final String TAG = "Noc";
+
     String surname, name, presentAddress, homeAddress, dateOfBirth, placeOfBirth, nocType, charges, identificationMark, fatherName, motherName
-            ,spouseName, rcNumber, icNumber, etNumber;
+            ,spouseName, rcNumber, icNumber, etNumber, userId;
     Map<String, String> timeStamp;
 
     public Noc() {
@@ -14,7 +18,7 @@ public class Noc {
 
     public Noc(String surname, String name, String presentAddress, String homeAddress, String dateOfBirth, String placeOfBirth,
                String nocType, String charges, String identificationMark, String fatherName, String motherName, String spouseName,
-               Map<String, String> timeStamp) {
+               String userId, Map<String, String> timeStamp) {
         this.surname = surname;
         this.name = name;
         this.presentAddress = presentAddress;
@@ -27,11 +31,13 @@ public class Noc {
         this.fatherName = fatherName;
         this.motherName = motherName;
         this.spouseName = spouseName;
+        this.userId = userId;
+//        Log.i(TAG, "Noc: "+surname);
         this.timeStamp =timeStamp;
     }
 
     public Noc(String surname, String name, String presentAddress, String homeAddress, String dateOfBirth, String placeOfBirth,
-               String nocType, String rcNumber, String icNumber, String etNumber, Map<String, String> timeStamp) {
+               String nocType, String rcNumber, String icNumber, String etNumber, String userId, Map<String, String> timeStamp) {
         this.surname = surname;
         this.name = name;
         this.presentAddress = presentAddress;
@@ -42,6 +48,7 @@ public class Noc {
         this.rcNumber = rcNumber;
         this.icNumber = icNumber;
         this.etNumber = etNumber;
+        this.userId = userId;
         this.timeStamp =timeStamp;
     }
 
@@ -171,5 +178,13 @@ public class Noc {
 
     public void setTimeStamp(Map<String, String> timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

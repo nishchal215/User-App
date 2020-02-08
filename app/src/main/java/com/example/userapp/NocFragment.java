@@ -26,6 +26,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
@@ -45,6 +47,8 @@ public class NocFragment extends Fragment implements DatePickerDialog.OnDateSetL
     String nocType;
 
     String[] type = {"Passport", "Re-registering Vehicle"};
+
+    FirebaseUser currentUser;
 
     int flag = 0;
 
@@ -72,6 +76,8 @@ public class NocFragment extends Fragment implements DatePickerDialog.OnDateSetL
         submit = view.findViewById(R.id.btn_submit_noc);
         passport = view.findViewById(R.id.nocPassport);
         vehicle = view.findViewById(R.id.nocVehicle);
+
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
         dateOfBirth.setOnClickListener(new View.OnClickListener() {
@@ -117,10 +123,10 @@ public class NocFragment extends Fragment implements DatePickerDialog.OnDateSetL
 
         //setting array adaptors to spinners
         //ArrayAdapter is a BaseAdapter that is backed by an array of arbitrary objects
-        ArrayAdapter<String> spin_adapter = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, type);
+            ArrayAdapter<String> spin_adapter = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, type);
 
-        // setting adapters to spinners
-        spinner.setAdapter(spin_adapter);
+            // setting adapters to spinners
+            spinner.setAdapter(spin_adapter);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,8 +234,10 @@ public class NocFragment extends Fragment implements DatePickerDialog.OnDateSetL
 
                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("NOC");
 
+//                        Log.i(TAG, "onClick: "+currentUser.getUid());
+
                         Noc noc = new Noc(txt_surname, txt_name, txt_present, txt_home, txt_DOB, txt_POB, nocType, txt_charges, txt_mark,
-                                txt_father, txt_mother, txt_spouse, ServerValue.TIMESTAMP);
+                                txt_father, txt_mother, txt_spouse, currentUser.getUid(), ServerValue.TIMESTAMP);
 
                         final ProgressDialog progressDialog = new ProgressDialog(getContext());
                         progressDialog.show();
@@ -305,7 +313,7 @@ public class NocFragment extends Fragment implements DatePickerDialog.OnDateSetL
                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("NOC");
 
                         Noc noc = new Noc(txt_surname, txt_name, txt_present, txt_home, txt_DOB, txt_POB, nocType, txt_rc, txt_ic,
-                                txt_et, ServerValue.TIMESTAMP);
+                                txt_et, currentUser.getUid(), ServerValue.TIMESTAMP);
 
                         final ProgressDialog progressDialog = new ProgressDialog(getContext());
                         progressDialog.show();

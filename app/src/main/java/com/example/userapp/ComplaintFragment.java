@@ -17,8 +17,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 import java.lang.reflect.Array;
 
@@ -28,6 +31,7 @@ public class ComplaintFragment extends Fragment {
     EditText details;
     Button submit;
     int policeLevel, flag=0;
+    FirebaseUser currentUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,6 +42,8 @@ public class ComplaintFragment extends Fragment {
         spinner = view.findViewById(R.id.levelSpinner);
         details = view.findViewById(R.id.complaintDetails);
         submit = view.findViewById(R.id.btn_submit_complaint);
+
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
         String[] level = {"Constable", "Inspector", "Superintendent of Police",};
@@ -83,7 +89,7 @@ public class ComplaintFragment extends Fragment {
 
                 if(flag==0){
 
-                    Complaint complaint = new Complaint(policeLevel, txt_details);
+                    Complaint complaint = new Complaint(policeLevel, txt_details, currentUser.getUid(), ServerValue.TIMESTAMP);
 
                     databaseReference.push().setValue(complaint).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
