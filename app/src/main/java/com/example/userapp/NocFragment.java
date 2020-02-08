@@ -237,7 +237,8 @@ public class NocFragment extends Fragment implements DatePickerDialog.OnDateSetL
 //                        Log.i(TAG, "onClick: "+currentUser.getUid());
 
                         Noc noc = new Noc(txt_surname, txt_name, txt_present, txt_home, txt_DOB, txt_POB, nocType, txt_charges, txt_mark,
-                                txt_father, txt_mother, txt_spouse, currentUser.getUid(), ServerValue.TIMESTAMP);
+                                txt_father, txt_mother, txt_spouse, currentUser.getUid(), ServerValue.TIMESTAMP, "Pending",
+                                "", "", "");
 
                         final ProgressDialog progressDialog = new ProgressDialog(getContext());
                         progressDialog.show();
@@ -313,7 +314,8 @@ public class NocFragment extends Fragment implements DatePickerDialog.OnDateSetL
                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("NOC");
 
                         Noc noc = new Noc(txt_surname, txt_name, txt_present, txt_home, txt_DOB, txt_POB, nocType, txt_rc, txt_ic,
-                                txt_et, currentUser.getUid(), ServerValue.TIMESTAMP);
+                                txt_et, currentUser.getUid(), ServerValue.TIMESTAMP, "Pending", "", "",
+                                "");
 
                         final ProgressDialog progressDialog = new ProgressDialog(getContext());
                         progressDialog.show();

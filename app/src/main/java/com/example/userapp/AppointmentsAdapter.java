@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,6 +41,8 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
         this.type = type;
         this.category = category;
 
+//        Log.i(TAG, "AppointmentsAdapter: "+category);
+
     }
 
     @NonNull
@@ -57,7 +60,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
 //        Log.i(TAG, "onBindViewHolder: "+ mAppointments.get(position));
 
-        String string = mAppointments.get(position);
+        final String string = mAppointments.get(position);
 
 
         databaseReference = FirebaseDatabase.getInstance().getReference(category).child(string);
@@ -67,12 +70,16 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
 
-                if(category.equals("FIRs")){
+                if(category.equals("FIRs") && dataSnapshot.exists()){
+
+//                    Toast.makeText(mContext, "Here", Toast.LENGTH_SHORT).show();
 
                     holder.nocAppointment.setVisibility(View.GONE);
                     holder.firAppointment.setVisibility(View.VISIBLE);
 
                     Map<String, String> map;
+
+//                    Log.i(TAG, "onDataChange: "+string);
 
                     map = (Map<String, String>) dataSnapshot.getValue();
 //
@@ -97,8 +104,60 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
                     }
 
 
-                }else if(category.equals("NOC")){
+                }else if(category.equals("NOC") && dataSnapshot.exists()){
 
+
+                    holder.nocAppointment.setVisibility(View.VISIBLE);
+                    holder.firAppointment.setVisibility(View.GONE);
+
+                    Map<String, String> map;
+
+                    map = (Map<String, String>) dataSnapshot.getValue();
+
+                    if(dataSnapshot.getChildrenCount() == 18){
+
+                        Noc noc = new Noc(map.get("surname"), map.get("name"), map.get("presentAddress"), map.get("homeAddress"),
+                                map.get("dateOfBirth"), map.get("placeOfBirth"), map.get("nocType"), map.get("charges"),
+                                map.get("identificationMark"), map.get("fatherName"), map.get("motherName"), map.get("spouseName"),
+                                map.get("userId"), String.valueOf(map.get("timeStamp")), map.get("status"), map.get("reportingDate"),
+                                map.get("reportingPlace"), map.get("correspondent"));
+
+                        holder.nocName.setText(noc.getName()+" "+noc.getSurname());
+                        holder.nocType.setText(noc.getNocType());
+
+                        holder.nocStatus.setText(noc.getStatus());
+
+                        if(noc.getStatus().equals("Pending")){
+
+                            holder.nocLayoutDate.setVisibility(View.GONE);
+                            holder.nocLayoutPS.setVisibility(View.GONE);
+                            holder.nocLayoutCorrespondent.setVisibility(View.GONE);
+
+                        }
+
+
+                    }
+                    else{
+
+                        Noc noc = new Noc(map.get("surname"), map.get("name"), map.get("presentAddress"), map.get("homeAddress"),
+                                map.get("dateOfBirth"), map.get("placeOfBirth"), map.get("nocType"), map.get("rcNumber"),
+                                map.get("icNumber"), map.get("etNumber"), map.get("userId"), String.valueOf(map.get("timeStamp")), map.get("status"),
+                                map.get("reportingDate"), map.get("reportingPlace"), map.get("correspondent"));
+
+                        holder.nocName.setText(noc.getName()+" "+noc.getSurname());
+                        holder.nocType.setText(noc.getNocType());
+
+                        holder.nocStatus.setText(noc.getStatus());
+
+                        if(noc.getStatus().equals("Pending")){
+
+                            holder.nocLayoutDate.setVisibility(View.GONE);
+                            holder.nocLayoutPS.setVisibility(View.GONE);
+                            holder.nocLayoutCorrespondent.setVisibility(View.GONE);
+
+                        }
+
+                    }
 
 
                 }

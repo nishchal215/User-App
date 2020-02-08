@@ -35,7 +35,7 @@ public class AppointmentFragment extends Fragment {
     RecyclerView recyclerView;
     Spinner typeSpinner, categorySpinner;
 
-    String[] type ={"All", "Pending", "Accepted", "Approved"};
+    String[] type = {"All", "Pending", "Accepted", "Approved"};
     String[] category = {"FIRs", "NOC"};
 
     String txt_type = "All", txt_category = "FIRs";
@@ -53,7 +53,7 @@ public class AppointmentFragment extends Fragment {
         typeSpinner = view.findViewById(R.id.typeSpinner);
         categorySpinner = view.findViewById(R.id.categorySpinner);
 
-        recyclerView =view.findViewById(R.id.appointmentRecyclerView);
+        recyclerView = view.findViewById(R.id.appointmentRecyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
@@ -61,12 +61,12 @@ public class AppointmentFragment extends Fragment {
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        if(currentUser != null) {
+        if (currentUser != null) {
 
             appointmentsList = new ArrayList<>();
 
             readAppointments(txt_type, txt_category);
-            appointmentsAdapter =  new AppointmentsAdapter(getContext(), appointmentsList, txt_type, txt_category);
+            appointmentsAdapter = new AppointmentsAdapter(getContext(), appointmentsList, txt_type, txt_category);
 
             recyclerView.setAdapter(appointmentsAdapter);
 
@@ -80,7 +80,7 @@ public class AppointmentFragment extends Fragment {
                     readAppointments(txt_type, txt_category);
 
 
-                    appointmentsAdapter =  new AppointmentsAdapter(getContext(), appointmentsList, txt_type, txt_category);
+                    appointmentsAdapter = new AppointmentsAdapter(getContext(), appointmentsList, txt_type, txt_category);
 
                     recyclerView.setAdapter(appointmentsAdapter);
 
@@ -105,10 +105,9 @@ public class AppointmentFragment extends Fragment {
 //                    Log.i(TAG, "onItemSelected: " + txt_category);
                     readAppointments(txt_type, txt_category);
 
-                    appointmentsAdapter =  new AppointmentsAdapter(getContext(), appointmentsList, txt_type, txt_category);
+                    appointmentsAdapter = new AppointmentsAdapter(getContext(), appointmentsList, txt_type, txt_category);
 
                     recyclerView.setAdapter(appointmentsAdapter);
-
 
 
                 }
@@ -140,17 +139,22 @@ public class AppointmentFragment extends Fragment {
 
 //                Log.i(TAG, "onDataChange: "+ dataSnapshot.getChildrenCount());
 
-                appointmentsList.clear();
+                if (dataSnapshot.exists()) {
 
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    appointmentsList.clear();
 
-                    String string = snapshot.getValue(String.class);
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        String string = snapshot.getValue(String.class);
 //                    Log.i(TAG, "onDataChange: "+string);
 
-                    appointmentsList.add(string);
+                        appointmentsList.add(string);
+
+                    }
 
                 }
 
+//                Log.i(TAG, "onDataChange: " + appointmentsList.size());
                 appointmentsAdapter.notifyDataSetChanged();
 
             }

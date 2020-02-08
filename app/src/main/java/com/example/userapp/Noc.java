@@ -9,7 +9,8 @@ public class Noc {
     private static final String TAG = "Noc";
 
     String surname, name, presentAddress, homeAddress, dateOfBirth, placeOfBirth, nocType, charges, identificationMark, fatherName, motherName
-            ,spouseName, rcNumber, icNumber, etNumber, userId;
+            ,spouseName, rcNumber, icNumber, etNumber, userId, ts;
+    String status, reportingDate, reportingPlace, correspondent;
     Map<String, String> timeStamp;
 
     public Noc() {
@@ -18,7 +19,8 @@ public class Noc {
 
     public Noc(String surname, String name, String presentAddress, String homeAddress, String dateOfBirth, String placeOfBirth,
                String nocType, String charges, String identificationMark, String fatherName, String motherName, String spouseName,
-               String userId, Map<String, String> timeStamp) {
+               String userId, Map<String, String> timeStamp, String status, String reportingDate, String reportingPlace,
+               String correspondent) {
         this.surname = surname;
         this.name = name;
         this.presentAddress = presentAddress;
@@ -32,12 +34,16 @@ public class Noc {
         this.motherName = motherName;
         this.spouseName = spouseName;
         this.userId = userId;
-//        Log.i(TAG, "Noc: "+surname);
         this.timeStamp =timeStamp;
+        this.status = status;
+        this.reportingDate = reportingDate;
+        this.reportingPlace = reportingPlace;
+        this.correspondent = correspondent;
     }
 
     public Noc(String surname, String name, String presentAddress, String homeAddress, String dateOfBirth, String placeOfBirth,
-               String nocType, String rcNumber, String icNumber, String etNumber, String userId, Map<String, String> timeStamp) {
+               String nocType, String rcNumber, String icNumber, String etNumber, String userId, Map<String, String> timeStamp
+            , String status, String reportingDate, String reportingPlace, String correspondent) {
         this.surname = surname;
         this.name = name;
         this.presentAddress = presentAddress;
@@ -50,6 +56,54 @@ public class Noc {
         this.etNumber = etNumber;
         this.userId = userId;
         this.timeStamp =timeStamp;
+        this.status = status;
+        this.reportingDate = reportingDate;
+        this.reportingPlace = reportingPlace;
+        this.correspondent = correspondent;
+    }
+
+    public Noc(String surname, String name, String presentAddress, String homeAddress, String dateOfBirth, String placeOfBirth,
+               String nocType, String charges, String identificationMark, String fatherName, String motherName, String spouseName,
+               String userId, String ts, String status, String reportingDate, String reportingPlace, String correspondent) {
+        this.surname = surname;
+        this.name = name;
+        this.presentAddress = presentAddress;
+        this.homeAddress = homeAddress;
+        this.dateOfBirth = dateOfBirth;
+        this.placeOfBirth = placeOfBirth;
+        this.nocType = nocType;
+        this.charges = charges;
+        this.identificationMark = identificationMark;
+        this.fatherName = fatherName;
+        this.motherName = motherName;
+        this.spouseName = spouseName;
+        this.userId = userId;
+        this.ts = ts;
+        this.status = status;
+        this.reportingDate = reportingDate;
+        this.reportingPlace = reportingPlace;
+        this.correspondent = correspondent;
+    }
+
+    public Noc(String surname, String name, String presentAddress, String homeAddress, String dateOfBirth, String placeOfBirth,
+               String nocType, String rcNumber, String icNumber, String etNumber, String userId, String ts, String status,
+               String reportingDate, String reportingPlace, String correspondent) {
+        this.surname = surname;
+        this.name = name;
+        this.presentAddress = presentAddress;
+        this.homeAddress = homeAddress;
+        this.dateOfBirth = dateOfBirth;
+        this.placeOfBirth = placeOfBirth;
+        this.nocType = nocType;
+        this.rcNumber = rcNumber;
+        this.icNumber = icNumber;
+        this.etNumber = etNumber;
+        this.userId = userId;
+        this.ts = ts;
+        this.status = status;
+        this.reportingDate = reportingDate;
+        this.reportingPlace = reportingPlace;
+        this.correspondent = correspondent;
     }
 
     public String getSurname() {
@@ -186,5 +240,45 @@ public class Noc {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getTs() {
+        return ts;
+    }
+
+    public void setTs(String ts) {
+        this.ts = ts;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getReportingDate() {
+        return reportingDate;
+    }
+
+    public void setReportingDate(String reportingDate) {
+        this.reportingDate = reportingDate;
+    }
+
+    public String getReportingPlace() {
+        return reportingPlace;
+    }
+
+    public void setReportingPlace(String reportingPlace) {
+        this.reportingPlace = reportingPlace;
+    }
+
+    public String getCorrespondent() {
+        return correspondent;
+    }
+
+    public void setCorrespondent(String correspondent) {
+        this.correspondent = correspondent;
     }
 }
