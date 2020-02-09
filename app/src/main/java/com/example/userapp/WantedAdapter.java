@@ -69,63 +69,70 @@ public class WantedAdapter extends RecyclerView.Adapter<WantedAdapter.ViewHolder
 
                 criminals = dataSnapshot.getValue(Criminals.class);
 
-                assert criminals != null;
-                Glide.with(mContext).load(criminals.getProfile_pic_url()).into(holder.picture);
-                holder.name.setText(criminals.getCriminal_name());
-                holder.bodyMark.setText(criminals.getCriminal_BodyMark());
-                holder.rating.setText(criminals.getCriminal_rating());
+                if(dataSnapshot.exists()) {
 
-                holder.showButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                    assert criminals != null;
+                    Glide.with(mContext).load(criminals.getProfile_pic_url()).into(holder.picture);
+                    holder.name.setText(criminals.getCriminal_name());
+                    holder.bodyMark.setText(criminals.getCriminal_BodyMark());
+                    holder.rating.setText(criminals.getCriminal_rating());
+
+                    holder.showButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
 
-                        if(holder.last_crime.getVisibility() == View.GONE){
+                            if (holder.last_crime.getVisibility() == View.GONE) {
 
-                            holder.showButton.setRotation(180);
-                            TransitionManager.beginDelayedTransition(holder.last_crime, new AutoTransition());
+                                holder.showButton.setRotation(180);
+                                TransitionManager.beginDelayedTransition(holder.last_crime, new AutoTransition());
 
-                            holder.last_crime.setVisibility(View.VISIBLE);
-                        }else{
+                                holder.last_crime.setVisibility(View.VISIBLE);
+                            } else {
 
-                            holder.showButton.setRotation(360);
-                            TransitionManager.beginDelayedTransition(holder.last_crime, new AutoTransition());
-                            holder.last_crime.setVisibility(View.GONE);
+                                holder.showButton.setRotation(360);
+                                TransitionManager.beginDelayedTransition(holder.last_crime, new AutoTransition());
+                                holder.last_crime.setVisibility(View.GONE);
+                            }
                         }
-                    }
-                });
+                    });
 
 
 //                Log.i(TAG, "onDataChange: "+criminals.getLast_crime());
 
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("crime_ref").child(criminals.getLast_crime());
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("crime_ref").child(criminals.getLast_crime());
+                    reference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        Crime crime = dataSnapshot.getValue(Crime.class);
+                            if(dataSnapshot.exists()) {
 
-                        if(crime != null) {
+                                Crime crime = dataSnapshot.getValue(Crime.class);
 
-                            holder.crimeType.setText(crime.getCrime_type());
-                            holder.crimePlace.setText(crime.getDistrict_of_crime() +", "+ crime.getState_of_crime());
-                            holder.crimeRating.setText(crime.getRating_of_crime());
+                                if (crime != null) {
+
+                                    holder.crimeType.setText(crime.getCrime_type());
+                                    holder.crimePlace.setText(crime.getDistrict_of_crime() + ", " + crime.getState_of_crime());
+                                    holder.crimeRating.setText(crime.getRating_of_crime());
 
 
-                            long milliseconds = Long.parseLong(crime.gettime_when_crime_added());
-                            String simpleDateFormat = DateFormat.getDateTimeInstance().format(milliseconds);
-                            holder.crimeDate.setText(simpleDateFormat);
+                                    long milliseconds = Long.parseLong(crime.gettime_when_crime_added());
+                                    String simpleDateFormat = DateFormat.getDateTimeInstance().format(milliseconds);
+                                    holder.crimeDate.setText(simpleDateFormat);
 
 //                            Log.i(TAG, "onDataChange: " + crime.getCrime_id());
+                                }
+                            }
+
                         }
 
-                    }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
 
-                    }
-                });
+                }
 
 
             }

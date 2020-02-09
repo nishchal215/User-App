@@ -297,6 +297,8 @@ public class SignUpActivity extends AppCompatActivity {
             progressDialog.show();
             progressDialog.setProgress(0);
 
+            storageReference = FirebaseStorage.getInstance().getReference();
+
             final StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
 
             ref.putFile(filePath2).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {

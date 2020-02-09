@@ -34,6 +34,11 @@ import com.google.android.material.internal.NavigationMenu;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.onesignal.OneSignal;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         FirFragment.OnAlertDialogBoxClickedListener {
@@ -73,6 +78,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         };
 
         if(currentUser != null) {
+
+            OneSignal.startInit(this)
+
+
+                    .unsubscribeWhenNotificationsAreDisabled(false)
+                    .init();
+
+
+            OneSignal.setSubscription(true);
+            OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
+                @Override
+                public void idsAvailable(String userId, String registrationId) {
+
+                    FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser.getUid()).child("notificationId").setValue(userId);
+
+                }
+            });
+            OneSignal.setInFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification);
 
             drawer = findViewById(R.id.drawerLayout);
             navigationView = findViewById(R.id.navView);
@@ -233,6 +256,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.logout :
 //                Log.i(TAG, "onNavigationItemSelected: Logout Pressed");
+                OneSignal.setSubscription(false);
                 signOut();
                 finish();
 

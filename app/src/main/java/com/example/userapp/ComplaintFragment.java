@@ -24,13 +24,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 
 import java.lang.reflect.Array;
+import java.util.HashMap;
 
 public class ComplaintFragment extends Fragment {
 
     Spinner spinner;
     EditText details;
     Button submit;
-    int policeLevel, flag=0;
+    String policeLevel;
+    int flag=0;
     FirebaseUser currentUser;
 
     @Override
@@ -46,7 +48,10 @@ public class ComplaintFragment extends Fragment {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
-        String[] level = {"Constable", "Inspector", "Superintendent of Police",};
+        final String[] level = {"Select Your Designation","Director General of Police (DGP)","Special Director General of Police (SDG)",
+            "Additional Director General of Police (ADG)", "Inspector General of Police (IG)", "Deputy Inspector General of Police (DIG)",
+                "Senior Superintendent of Police (SSP)", "Superintendent of Police (SP)", "Deputy Superintendent of Police (Dy.SP)",
+                "Assistant Superintendent of Police (ASP)", "Inspector", "Constable"};
 
 
 
@@ -54,7 +59,7 @@ public class ComplaintFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                policeLevel = position;
+                policeLevel = level[position];
 
             }
 
@@ -89,9 +94,17 @@ public class ComplaintFragment extends Fragment {
 
                 if(flag==0){
 
-                    Complaint complaint = new Complaint(policeLevel, txt_details, currentUser.getUid(), ServerValue.TIMESTAMP);
 
-                    databaseReference.push().setValue(complaint).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    HashMap<String, Object> hashMap = new HashMap<>();
+
+                    hashMap.put("level", policeLevel);
+                    hashMap.put("details", txt_details);
+                    hashMap.put("userId", currentUser.getUid());
+                    hashMap.put("timeStamp", ServerValue.TIMESTAMP);
+
+//                    Complaint complaint = new Complaint(policeLevel, txt_details, currentUser.getUid(), ServerValue.TIMESTAMP);
+
+                    databaseReference.push().setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
 

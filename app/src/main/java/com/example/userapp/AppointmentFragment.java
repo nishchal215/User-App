@@ -145,7 +145,7 @@ public class AppointmentFragment extends Fragment {
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                        String string = snapshot.getValue(String.class);
+                        String string = snapshot.getKey();
 //                    Log.i(TAG, "onDataChange: "+string);
 
                         appointmentsList.add(string);

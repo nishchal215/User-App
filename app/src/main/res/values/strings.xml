@@ -17,4 +17,21 @@
 
     </string-array>
 
+
+    <string-array name="SortBy">
+        <item>Random</item>
+        <item>Criminal Name</item>
+        <item>Criminal Rating</item>
+    </string-array>
+    <string-array name="SearchBy">
+        <item>State of crime</item>
+        <item>District/City of Crime</item>
+    </string-array>
+
+    <string-array name="QueryType">
+        <item>SortBy</item>
+        <item>SearchBy</item>
+
+    </string-array>
+
 </resources>

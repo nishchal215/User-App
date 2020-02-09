@@ -295,36 +295,55 @@ public class FirFragment extends Fragment {
                 }
 
 
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("FIRs");
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("FIRs").push();
+
+                final String string = reference.getKey();
 
                 Fir fir = new Fir(currentUser.getUid(), txt_state, txt_district, txt_place, crimeType, txt_subject, txt_details, ServerValue.TIMESTAMP, "Pending", "", "", "");
 
                 if(flag == 0){
 
-                    reference.push().setValue(fir).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    reference.setValue(fir).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
 
                             if(task.isSuccessful()){
 
-                                Toast.makeText(getContext(), "FIR Filled successfully.", Toast.LENGTH_SHORT).show();
-                                state.setText("");
-                                dist.setText("");
-                                place.setText("");
 
-                                spinner.setSelection(0);
+                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users")
+                                        .child(currentUser.getUid()).child("FIRs").child(string);
 
-                                subject.setText("");
-                                details.setText("");
-                                flag=0;
+                                databaseReference.setValue(ServerValue.TIMESTAMP).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
 
-                                state.isFocusable();
+                                        if(task.isSuccessful()){
+
+                                            Toast.makeText(getContext(), "FIR Filled successfully.", Toast.LENGTH_SHORT).show();
+                                            state.setText("");
+                                            dist.setText("");
+                                            place.setText("");
+
+                                            spinner.setSelection(0);
+
+                                            subject.setText("");
+                                            details.setText("");
+                                            flag=0;
+
+                                            state.isFocusable();
 
 
-                                //  To hide keyboard
+                                            //  To hide keyboard
 
-                                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-                                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                                            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                                            imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+
+                                        }
+
+                                    }
+                                });
+
+
 
                             }
 

@@ -66,8 +66,8 @@ public class NocFragment extends Fragment implements DatePickerDialog.OnDateSetL
         placeOfBirth = view.findViewById(R.id.nocPlaceOfBirth);
         charges = view.findViewById(R.id.nocCharges);
         fatherName = view.findViewById(R.id.nocFatherName);
-        motherName = view.findViewById(R.id.nocIdentificationMark);
-        identificationMark = view.findViewById(R.id.nocMotherName);
+        motherName = view.findViewById(R.id.nocMotherName);
+        identificationMark = view.findViewById(R.id.nocIdentificationMark);
         spouseName = view.findViewById(R.id.nocSpouseName);
         rcNumber = view.findViewById(R.id.nocRC);
         icNumber = view.findViewById(R.id.nocInsuranceCertificate);
@@ -232,7 +232,10 @@ public class NocFragment extends Fragment implements DatePickerDialog.OnDateSetL
 
                     if(flag == 0){
 
-                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("NOC");
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("NOC").push();
+
+
+                        final String  string =databaseReference.getKey();
 
 //                        Log.i(TAG, "onClick: "+currentUser.getUid());
 
@@ -243,14 +246,30 @@ public class NocFragment extends Fragment implements DatePickerDialog.OnDateSetL
                         final ProgressDialog progressDialog = new ProgressDialog(getContext());
                         progressDialog.show();
 
-                        databaseReference.push().setValue(noc).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        databaseReference.setValue(noc).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 
                                 if(task.isSuccessful()){
 
-                                    progressDialog.dismiss();
-                                    Toast.makeText(getContext(), "Submitted Successfully", Toast.LENGTH_SHORT).show();
+                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users")
+                                            .child(currentUser.getUid()).child("NOC").child(string);
+
+                                    reference.setValue(ServerValue.TIMESTAMP).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                            if(task.isSuccessful()){
+
+                                                progressDialog.dismiss();
+                                                Toast.makeText(getContext(), "Submitted Successfully", Toast.LENGTH_SHORT).show();
+
+
+                                            }
+
+                                        }
+                                    });
+
 
                                 }else{
 
@@ -311,7 +330,9 @@ public class NocFragment extends Fragment implements DatePickerDialog.OnDateSetL
 
                     if(flag == 0){
 
-                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("NOC");
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("NOC").push();
+
+                        final String  string =databaseReference.getKey();
 
                         Noc noc = new Noc(txt_surname, txt_name, txt_present, txt_home, txt_DOB, txt_POB, nocType, txt_rc, txt_ic,
                                 txt_et, currentUser.getUid(), ServerValue.TIMESTAMP, "Pending", "", "",
@@ -320,14 +341,30 @@ public class NocFragment extends Fragment implements DatePickerDialog.OnDateSetL
                         final ProgressDialog progressDialog = new ProgressDialog(getContext());
                         progressDialog.show();
 
-                        databaseReference.push().setValue(noc).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        databaseReference.setValue(noc).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 
                                 if(task.isSuccessful()){
 
-                                    progressDialog.dismiss();
-                                    Toast.makeText(getContext(), "Submitted Successfully", Toast.LENGTH_SHORT).show();
+                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users")
+                                            .child(currentUser.getUid()).child("NOC").child(string);
+
+                                    reference.setValue(ServerValue.TIMESTAMP).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                            if(task.isSuccessful()){
+
+                                                progressDialog.dismiss();
+                                                Toast.makeText(getContext(), "Submitted Successfully", Toast.LENGTH_SHORT).show();
+
+
+                                            }
+
+                                        }
+                                    });
+
 
                                 }else{
 

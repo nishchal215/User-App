@@ -4,25 +4,25 @@ import java.util.Map;
 
 public class Complaint {
 
-    int level;
+    String level;
     String details, userId;
     Map<String, String> timeStamp;
 
     public Complaint() {
     }
 
-    public Complaint(int level, String details, String userId, Map<String, String> timeStamp) {
+    public Complaint(String level, String details, String userId, Map<String, String> timeStamp) {
         this.level = level;
         this.details = details;
         this.userId = userId;
         this.timeStamp = timeStamp;
     }
 
-    public int getLevel() {
+    public String getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 
