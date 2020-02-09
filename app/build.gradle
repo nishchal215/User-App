@@ -57,5 +57,6 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-storage:4.3.1'
     implementation 'com.google.firebase:firebase-ml-vision:24.0.1'
     implementation 'com.onesignal:OneSignal:3.12.4'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
 
 }

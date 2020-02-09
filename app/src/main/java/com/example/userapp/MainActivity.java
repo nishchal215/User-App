@@ -336,12 +336,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (menuItem.getItemId()){
 
+            case R.id.feed:
+                toolbar.setTitle("FIR");
+                FeedFragment feedFragment = new FeedFragment();
+                fragmentTransaction.replace(R.id.fragment_container, feedFragment);
+                fragmentTransaction.commit();
+                break;
+
             case R.id.wanted:
                 toolbar.setTitle("Wanted");
                 WantedFragment wantedFragment = new WantedFragment();
                 fragmentTransaction.replace(R.id.fragment_container, wantedFragment);
                 fragmentTransaction.commit();
-
                 break;
 
             case R.id.file_a_fir:

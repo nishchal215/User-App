@@ -82,7 +82,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
                     map = (Map<String, String>) dataSnapshot.getValue();
 //
-                    Fir 0 = new Fir(map.get("complainantId"), map.get("state"), map.get("district"), map.get("place"), map.get("type"),
+                    Fir fir = new Fir(map.get("complainantId"), map.get("state"), map.get("district"), map.get("place"), map.get("type"),
                                 map.get("subject"), map.get("details"), String.valueOf(map.get("timeStamp")), map.get("status"),
                                 map.get("reportingDate"), map.get("reportingPlace"), map.get("correspondent"));
 //
