@@ -75,50 +75,55 @@ public class AccountFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                user = dataSnapshot.getValue(User.class);
 
-                name.setText(user.getName());
-                email.setText(user.getEmail());
+                if(dataSnapshot.exists()) {
 
-                if(!TextUtils.equals(user.getImageURL(),"default")){
+                    user = dataSnapshot.getValue(User.class);
+
+                    name.setText(user.getName());
+                    email.setText(user.getEmail());
+
+                    if (!TextUtils.equals(user.getImageURL(), "default")) {
 
 
-                    Glide.with(getContext()).load(user.getImageURL()).into(profilePicture);
-
-                }
-
-                Log.i(TAG, "onDataChange: "+dataSnapshot.getChildrenCount());
-
-                if(dataSnapshot.getChildrenCount() > 4){
-
-                    age.setText(user.getAge());
-                    fathername.setText(user.getFathername());
-                    address.setText(user.getAddress());
-                    pin.setText(user.getPincode());
-                    phone.setText(user.getPhone());
-                    aadhaar.setText(user.getAadhaar());
-
-                    switch (user.getGender()){
-
-                        case "Male" :
-                            radioGroup.check(R.id.radio_male);
-                            break;
-
-                        case  "Female" :
-                            radioGroup.check(R.id.radio_female);
-                            break;
-
-                        case "Others" :
-                            radioGroup.check(R.id.radio_others);
-                            break;
+                        Glide.with(getContext()).load(user.getImageURL()).into(profilePicture);
 
                     }
+
+                    Log.i(TAG, "onDataChange: " + dataSnapshot.getChildrenCount());
+
+                    if (dataSnapshot.getChildrenCount() > 4) {
+
+                        age.setText(user.getAge());
+                        fathername.setText(user.getFathername());
+                        address.setText(user.getAddress());
+                        pin.setText(user.getPincode());
+                        phone.setText(user.getPhone());
+                        aadhaar.setText(user.getAadhaar());
+
+                        switch (user.getGender()) {
+
+                            case "Male":
+                                radioGroup.check(R.id.radio_male);
+                                break;
+
+                            case "Female":
+                                radioGroup.check(R.id.radio_female);
+                                break;
+
+                            case "Others":
+                                radioGroup.check(R.id.radio_others);
+                                break;
+
+                        }
 
 //                    if(TextUtils.equals(user.getFax(), "")){
 //
 //                        fax.setVisibility(View.INVISIBLE);
 //
 //                    }
+
+                    }
 
                 }
 

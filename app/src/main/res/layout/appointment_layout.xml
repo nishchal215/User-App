@@ -82,7 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:id="@+id/firLayoutDate">
+                android:id="@+id/firLayoutDate"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="100dp"
@@ -103,7 +104,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:id="@+id/firLayoutPS">
+                android:id="@+id/firLayoutPS"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="100dp"
@@ -124,7 +126,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:id="@+id/firLayoutCorrespondent">
+                android:id="@+id/firLayoutCorrespondent"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="100dp"
@@ -213,7 +216,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:id="@+id/nocLayoutDate">
+                android:id="@+id/nocLayoutDate"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="100dp"
@@ -234,7 +238,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:id="@+id/nocLayoutPS">
+                android:id="@+id/nocLayoutPS"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="100dp"
@@ -255,7 +260,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:id="@+id/nocLayoutCorrespondent">
+                android:id="@+id/nocLayoutCorrespondent"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="100dp"

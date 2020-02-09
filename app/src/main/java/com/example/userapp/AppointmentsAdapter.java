@@ -30,15 +30,14 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
     Context mContext;
     List<String> mAppointments;
-    String type, category;
+    String category;
 
     DatabaseReference databaseReference;
 
 
-    public AppointmentsAdapter(Context mContext, List<String> mAppointments, String type, String category) {
+    public AppointmentsAdapter(Context mContext, List<String> mAppointments, String category) {
         this.mContext = mContext;
         this.mAppointments = mAppointments;
-        this.type = type;
         this.category = category;
 
 //        Log.i(TAG, "AppointmentsAdapter: "+category);
@@ -83,7 +82,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
                     map = (Map<String, String>) dataSnapshot.getValue();
 //
-                    Fir fir = new Fir(map.get("complainantId"), map.get("state"), map.get("district"), map.get("place"), map.get("type"),
+                    Fir 0 = new Fir(map.get("complainantId"), map.get("state"), map.get("district"), map.get("place"), map.get("type"),
                                 map.get("subject"), map.get("details"), String.valueOf(map.get("timeStamp")), map.get("status"),
                                 map.get("reportingDate"), map.get("reportingPlace"), map.get("correspondent"));
 //
@@ -95,11 +94,14 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
                     holder.firStatus.setText(fir.getStatus());
 
-                    if(fir.getStatus().equals("Pending")){
+                    if(fir.getStatus().equals("Accepted")){
 
-                        holder.firLayoutDate.setVisibility(View.GONE);
-                        holder.firLayoutPS.setVisibility(View.GONE);
-                        holder.firLayoutCorrespondent.setVisibility(View.GONE);
+                        holder.firLayoutDate.setVisibility(View.VISIBLE);
+                        holder.firLayoutPS.setVisibility(View.VISIBLE);
+                        holder.firLayoutCorrespondent.setVisibility(View.VISIBLE);
+                        holder.firDate.setText(fir.getReportingDate());
+                        holder.firPS.setText(fir.getReportingPlace());
+                        holder.firCorrespondent.setText(fir.getCorrespondent());
 
                     }
 
@@ -127,11 +129,14 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
                         holder.nocStatus.setText(noc.getStatus());
 
-                        if(noc.getStatus().equals("Pending")){
+                        if(noc.getStatus().equals("Accepted")){
 
-                            holder.nocLayoutDate.setVisibility(View.GONE);
-                            holder.nocLayoutPS.setVisibility(View.GONE);
-                            holder.nocLayoutCorrespondent.setVisibility(View.GONE);
+                            holder.nocLayoutDate.setVisibility(View.VISIBLE);
+                            holder.nocLayoutPS.setVisibility(View.VISIBLE);
+                            holder.nocLayoutCorrespondent.setVisibility(View.VISIBLE);
+                            holder.nocDate.setText(noc.getReportingDate());
+                            holder.nocPS.setText(noc.getReportingPlace());
+                            holder.nocCorrespondent.setText(noc.getCorrespondent());
 
                         }
 
@@ -151,9 +156,12 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
                         if(noc.getStatus().equals("Pending")){
 
-                            holder.nocLayoutDate.setVisibility(View.GONE);
-                            holder.nocLayoutPS.setVisibility(View.GONE);
-                            holder.nocLayoutCorrespondent.setVisibility(View.GONE);
+                            holder.nocLayoutDate.setVisibility(View.VISIBLE);
+                            holder.nocLayoutPS.setVisibility(View.VISIBLE);
+                            holder.nocLayoutCorrespondent.setVisibility(View.VISIBLE);
+                            holder.nocDate.setText(noc.getReportingDate());
+                            holder.nocPS.setText(noc.getReportingPlace());
+                            holder.nocCorrespondent.setText(noc.getCorrespondent());
 
                         }
 

@@ -34,6 +34,7 @@ import com.google.firebase.database.ServerValue;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class NocFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
@@ -239,14 +240,35 @@ public class NocFragment extends Fragment implements DatePickerDialog.OnDateSetL
 
 //                        Log.i(TAG, "onClick: "+currentUser.getUid());
 
-                        Noc noc = new Noc(txt_surname, txt_name, txt_present, txt_home, txt_DOB, txt_POB, nocType, txt_charges, txt_mark,
-                                txt_father, txt_mother, txt_spouse, currentUser.getUid(), ServerValue.TIMESTAMP, "Pending",
-                                "", "", "");
+                        HashMap<String, Object> hashMap = new HashMap<>();
+
+                        hashMap.put("surname", txt_surname);
+                        hashMap.put("name", txt_name);
+                        hashMap.put("presentAddress", txt_present);
+                        hashMap.put("homeAddress", txt_home);
+                        hashMap.put("dateOfBirth", txt_DOB);
+                        hashMap.put("placeOfBirth", txt_POB);
+                        hashMap.put("nocType", nocType);
+                        hashMap.put("charges", txt_charges);
+                        hashMap.put("identificationMark", txt_mark);
+                        hashMap.put("fatherName", txt_father);
+                        hashMap.put("motherName", txt_mother);
+                        hashMap.put("spouseName", txt_spouse);
+                        hashMap.put("userId", currentUser.getUid());
+                        hashMap.put("timeStamp", ServerValue.TIMESTAMP);
+                        hashMap.put("status", "Pending");
+                        hashMap.put("reportingDate", "");
+                        hashMap.put("reportingPlace", "");
+                        hashMap.put("correspondent", "");
+
+//                        Noc noc = new Noc(txt_surname, txt_name, txt_present, txt_home, txt_DOB, txt_POB, nocType, txt_charges, txt_mark,
+//                                txt_father, txt_mother, txt_spouse, currentUser.getUid(), ServerValue.TIMESTAMP, "Pending",
+//                                "", "", "");
 
                         final ProgressDialog progressDialog = new ProgressDialog(getContext());
                         progressDialog.show();
 
-                        databaseReference.setValue(noc).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        databaseReference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 
@@ -334,14 +356,34 @@ public class NocFragment extends Fragment implements DatePickerDialog.OnDateSetL
 
                         final String  string =databaseReference.getKey();
 
-                        Noc noc = new Noc(txt_surname, txt_name, txt_present, txt_home, txt_DOB, txt_POB, nocType, txt_rc, txt_ic,
-                                txt_et, currentUser.getUid(), ServerValue.TIMESTAMP, "Pending", "", "",
-                                "");
+
+                        HashMap<String, Object> hashMap = new HashMap<>();
+
+                        hashMap.put("surname", txt_surname);
+                        hashMap.put("name", txt_name);
+                        hashMap.put("presentAddress", txt_present);
+                        hashMap.put("homeAddress", txt_home);
+                        hashMap.put("dateOfBirth", txt_DOB);
+                        hashMap.put("placeOfBirth", txt_POB);
+                        hashMap.put("nocType", nocType);
+                        hashMap.put("rcNumber", txt_rc);
+                        hashMap.put("icNumber", txt_ic);
+                        hashMap.put("etNumber", txt_et);
+                        hashMap.put("userId", currentUser.getUid());
+                        hashMap.put("timeStamp", ServerValue.TIMESTAMP);
+                        hashMap.put("status", "Pending");
+                        hashMap.put("reportingDate", "");
+                        hashMap.put("reportingPlace", "");
+                        hashMap.put("correspondent", "");
+
+//                        Noc noc = new Noc(txt_surname, txt_name, txt_present, txt_home, txt_DOB, txt_POB, nocType, txt_rc, txt_ic,
+//                                txt_et, currentUser.getUid(), ServerValue.TIMESTAMP, "Pending", "", "",
+//                                "");
 
                         final ProgressDialog progressDialog = new ProgressDialog(getContext());
                         progressDialog.show();
 
-                        databaseReference.setValue(noc).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        databaseReference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 

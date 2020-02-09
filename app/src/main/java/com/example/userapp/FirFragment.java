@@ -299,11 +299,30 @@ public class FirFragment extends Fragment {
 
                 final String string = reference.getKey();
 
-                Fir fir = new Fir(currentUser.getUid(), txt_state, txt_district, txt_place, crimeType, txt_subject, txt_details, ServerValue.TIMESTAMP, "Pending", "", "", "");
+
+
+
+//                Fir fir = new Fir(currentUser.getUid(), txt_state, txt_district, txt_place, crimeType, txt_subject, txt_details,
+//                        ServerValue.TIMESTAMP, "Pending", "", "", "");
 
                 if(flag == 0){
 
-                    reference.setValue(fir).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    HashMap<String, Object> mapHashMap = new HashMap<>();
+
+                    mapHashMap.put("complainantId", currentUser.getUid());
+                    mapHashMap.put("state", txt_state);
+                    mapHashMap.put("district", txt_district);
+                    mapHashMap.put("place", txt_place);
+                    mapHashMap.put("type", crimeType);
+                    mapHashMap.put("subject", txt_subject);
+                    mapHashMap.put("details", txt_details);
+                    mapHashMap.put("timeStamp", ServerValue.TIMESTAMP);
+                    mapHashMap.put("status", "Pending");
+                    mapHashMap.put("reportingDate", "");
+                    mapHashMap.put("reportingPlace", "");
+                    mapHashMap.put("correspondent", "");
+
+                    reference.setValue(mapHashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
 

@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class AppointmentFragment extends Fragment {
 
@@ -35,10 +36,10 @@ public class AppointmentFragment extends Fragment {
     RecyclerView recyclerView;
     Spinner typeSpinner, categorySpinner;
 
-    String[] type = {"All", "Pending", "Accepted", "Approved"};
+    String[] type = {"All", "Pending", "Accepted", "Approved", "Rejected"};
     String[] category = {"FIRs", "NOC"};
 
-    String txt_type = "All", txt_category = "FIRs";
+    String txt_category = "FIRs";
 
     List<String> appointmentsList;
 
@@ -50,7 +51,7 @@ public class AppointmentFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_appointment, container, false);
 
-        typeSpinner = view.findViewById(R.id.typeSpinner);
+//        typeSpinner = view.findViewById(R.id.typeSpinner);
         categorySpinner = view.findViewById(R.id.categorySpinner);
 
         recyclerView = view.findViewById(R.id.appointmentRecyclerView);
@@ -65,37 +66,10 @@ public class AppointmentFragment extends Fragment {
 
             appointmentsList = new ArrayList<>();
 
-            readAppointments(txt_type, txt_category);
-            appointmentsAdapter = new AppointmentsAdapter(getContext(), appointmentsList, txt_type, txt_category);
+            readAppointments(txt_category);
+            appointmentsAdapter = new AppointmentsAdapter(getContext(), appointmentsList, txt_category);
 
             recyclerView.setAdapter(appointmentsAdapter);
-
-
-            typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                    txt_type = type[position];
-//                    Log.i(TAG, "onItemSelected: " + txt_type);
-                    readAppointments(txt_type, txt_category);
-
-
-                    appointmentsAdapter = new AppointmentsAdapter(getContext(), appointmentsList, txt_type, txt_category);
-
-                    recyclerView.setAdapter(appointmentsAdapter);
-
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-
-            ArrayAdapter<String> spin_adapter = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, type);
-
-            // setting adapters to spinners
-            typeSpinner.setAdapter(spin_adapter);
 
             categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -103,9 +77,9 @@ public class AppointmentFragment extends Fragment {
 
                     txt_category = category[position];
 //                    Log.i(TAG, "onItemSelected: " + txt_category);
-                    readAppointments(txt_type, txt_category);
+                    readAppointments(txt_category);
 
-                    appointmentsAdapter = new AppointmentsAdapter(getContext(), appointmentsList, txt_type, txt_category);
+                    appointmentsAdapter = new AppointmentsAdapter(getContext(), appointmentsList, txt_category);
 
                     recyclerView.setAdapter(appointmentsAdapter);
 
@@ -129,7 +103,7 @@ public class AppointmentFragment extends Fragment {
         return view;
     }
 
-    private void readAppointments(String txt_type, String txt_category) {
+    private void readAppointments(String txt_category) {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());
 
@@ -146,7 +120,7 @@ public class AppointmentFragment extends Fragment {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                         String string = snapshot.getKey();
-//                    Log.i(TAG, "onDataChange: "+string);
+
 
                         appointmentsList.add(string);
 
