@@ -12,6 +12,13 @@
     <item
         android:id="@+id/file_a_fir"
         android:title="File a FIR" />
+    <item
+        android:id="@+id/updatewanted"
+        android:title="Update Wanted" />
+
+    <item
+        android:id="@+id/imagesearch"
+        android:title="Image Search" />
 
     <item
         android:id="@+id/noc"

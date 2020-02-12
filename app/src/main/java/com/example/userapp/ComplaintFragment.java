@@ -48,7 +48,7 @@ public class ComplaintFragment extends Fragment {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
-        final String[] level = {"Select Your Designation","Director General of Police (DGP)","Special Director General of Police (SDG)",
+        final String[] level = {"Select Designation of Officer","Director General of Police (DGP)","Special Director General of Police (SDG)",
             "Additional Director General of Police (ADG)", "Inspector General of Police (IG)", "Deputy Inspector General of Police (DIG)",
                 "Senior Superintendent of Police (SSP)", "Superintendent of Police (SP)", "Deputy Superintendent of Police (Dy.SP)",
                 "Assistant Superintendent of Police (ASP)", "Inspector", "Constable"};

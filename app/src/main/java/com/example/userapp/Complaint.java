@@ -6,12 +6,12 @@ public class Complaint {
 
     String level;
     String details, userId;
-    Map<String, String> timeStamp;
+    long timeStamp;
 
     public Complaint() {
     }
 
-    public Complaint(String level, String details, String userId, Map<String, String> timeStamp) {
+    public Complaint(String level, String details, String userId, long timeStamp) {
         this.level = level;
         this.details = details;
         this.userId = userId;
@@ -42,11 +42,11 @@ public class Complaint {
         this.userId = userId;
     }
 
-    public Map<String, String> getTimeStamp() {
+    public long getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Map<String, String> timeStamp) {
+    public void setTimeStamp(long timeStamp) {
         this.timeStamp = timeStamp;
     }
 }
